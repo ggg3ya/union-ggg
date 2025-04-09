@@ -1,42 +1,1175 @@
-<!DOCTYPE html><html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Union Ggg</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Inter', sans-serif;
-      background-color: #f5f5f5;
-    }.container {
-  text-align: center;
-}
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Union Bridge by Zun</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #10b981;
+            --background-color: #f0f4f8;
+            --card-background: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --border-color: #cbd5e1;
+            --console-bg: #1e293b;
+            --console-text: #4ade80;
+        }
 
-h1 {
-  font-size: 3rem;
-  margin-bottom: 0.5rem;
-  color: #111;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-p {
-  font-size: 1.2rem;
-  color: #555;
-}
+        body {
+            font-family: 'Lexend', sans-serif;
+            background: linear-gradient(135deg, #e6f2ff 0%, #d9e2ec 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
 
-  </style>
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header-icon {
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-group {
+            width: 100%;
+            max-width: 650px;
+            margin-bottom: 1.5rem;
+            position: relative;
+            background-color: #f8fafc;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .input-group label i {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-family: 'Lexend', sans-serif;
+        }
+
+        .input-wrapper input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(37, 99, 235, 0.3);
+            background-color: #f0f4ff;
+        }
+
+        .input-wrapper input:hover {
+            border-color: var(--primary-color);
+        }
+
+        .wallet-address {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+            background-color: #f1f5f9;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .wallet-address span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex: 1;
+            margin-right: 0.5rem;
+        }
+
+        .clear-wallet-btn {
+            background: none;
+            border: none;
+            color: #64748b;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .clear-wallet-btn:hover {
+            color: #f87171;
+        }
+
+        .btn {
+            width: 100%;
+            max-width: 650px;
+            padding: 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .console-container {
+            width: 100%;
+            max-width: 650px;
+            margin-top: 1rem;
+        }
+
+        .console-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .console-header span {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .console {
+            background-color: var(--console-bg);
+            color: var(--console-text);
+            font-family: 'Fira Code', monospace;
+            padding: 1rem;
+            border-radius: 10px;
+            min-height: 150px;
+            max-height: 300px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #2563eb #1e293b;
+        }
+
+        .console::-webkit-scrollbar {
+            width: 8px;
+            background-color: #1e293b;
+        }
+
+        .console::-webkit-scrollbar-thumb {
+            background-color: #2563eb;
+            border-radius: 4px;
+        }
+
+        .console-log {
+            white-space: nowrap;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .console-log a {
+            color: #1e90ff;
+            text-decoration: none;
+        }
+
+        .console-log a:hover {
+            text-decoration: underline;
+        }
+
+        .clear-logs-btn {
+            background: none;
+            border: none;
+            color: #64748b;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .clear-logs-btn:hover {
+            color: #f87171;
+        }
+
+        .clear-logs-btn i {
+            margin-left: 0.3rem;
+        }
+
+        .advanced-toggle {
+            width: 100%;
+            max-width: 650px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .advanced-toggle i {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #cbd5e1;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(20px);
+        }
+
+        .input-row {
+            display: flex;
+            gap: 1rem;
+            max-width: 650px;
+            width: 100%;
+        }
+
+        .input-row .input-group {
+            flex: 1;
+        }
+
+        @media (max-width: 680px) {
+            body {
+                padding: 1rem;
+            }
+
+            .input-group,
+            .btn,
+            .console-container,
+            .advanced-toggle,
+            .input-row {
+                max-width: 100%;
+            }
+
+            .input-row {
+                flex-direction: column;
+            }
+
+            .wallet-address {
+                flex-wrap: wrap;
+            }
+
+            .wallet-address span {
+                white-space: normal;
+                word-break: break-all;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Union ggg</h1>
-    <p>Fast. Simple. Minimalist.</p>
-  </div>
-</body>
-</html>
+    <div class="header">
+        <i class="fas fa-exchange-alt header-icon"></i>
+        <h1>USDC Bridge</h1>
+    </div>
+
+    <div class="input-group">
+        <label><i class="fas fa-network-wired"></i> RPC Configuration</label>
+        <div class="advanced-toggle">
+            <i class="fas fa-cog"></i>
+            <label class="toggle-switch">
+                <input type="checkbox" id="customRPCToggle">
+                <span class="slider"></span>
+            </label>
+            Use Custom RPC
+        </div>
+        <div id="customRPCSection" style="display:none;">
+            <div class="input-wrapper">
+                <input type="text" id="customRPCInput" placeholder="Enter custom RPC URL (e.g., https://eth-sepolia.example.com)">
+            </div>
+        </div>
+    </div>
+
+    <div class="input-group">
+        <label><i class="fas fa-key"></i> Private Key</label>
+        <div class="input-wrapper">
+            <input type="password" id="privateKey" placeholder="Enter your private key securely">
+        </div>
+        <div id="walletAddress" class="wallet-address" style="display: flex;">
+            <span id="walletAddressText">Wallet: 0x2180336Ed208FE56f8e0816BdAA3dCB48707FE2d</span>
+            <button class="clear-wallet-btn" id="clearWalletButton">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="input-group">
+        <label><i class="fas fa-wallet"></i> Babylon Receiving Address</label>
+        <div class="input-wrapper">
+            <input type="text" id="babylonAddress" placeholder="bbn1gcytw83ag3vdqgnt6vskfvgtqet6u54wa5m3wm">
+        </div>
+    </div>
+
+    <div class="input-row">
+        <div class="input-group">
+            <label><i class="fas fa-coins"></i> USDC Amount</label>
+            <div class="input-wrapper">
+                <input type="number" id="usdcAmount" placeholder="Enter USDC amount" step="0.001" min="0.001">
+            </div>
+        </div>
+        <div class="input-group">
+            <label><i class="fas fa-exchange-alt"></i> Transactions</label>
+            <div class="input-wrapper">
+                <input type="number" id="transactionCount" min="1" value="1">
+            </div>
+        </div>
+    </div>
+
+    <div class="input-group">
+        <label><i class="fas fa-gas-pump"></i> Gas Boost (GWEI)</label>
+        <div class="input-wrapper">
+            <input type="number" id="gasBoost" placeholder="Boost to add to base fee (e.g., 2)" step="0.1" min="0">
+        </div>
+    </div>
+
+    <button class="btn" id="executeButton">Bridge USDC</button>
+
+    <div class="console-container">
+        <div class="console-header">
+            <span>Console Output</span>
+            <button class="clear-logs-btn" id="clearLogsButton">
+                Clear <i class="fas fa-trash"></i>
+            </button>
+        </div>
+        <div class="console" id="consoleOutput"><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:11:28 PM]</span>
+                <span style="color: #4ade80">Initializing bridge transaction...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:11:28 PM]</span>
+                <span style="color: #4ade80">Using gas price: 3.001241373 GWEI (Base: 0.001241373 + Boost: 3.0)</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:11:29 PM]</span>
+                <span style="color: #4ade80">Current allowance: 0.0 USDC</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:11:29 PM]</span>
+                <span style="color: #4ade80">Approving maximum amount for USDC...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:11:29 PM]</span>
+                <span style="color: #4ade80">Approval Tx Hash:  <a href="https://sepolia.etherscan.io/tx/0xa5a3de623206ef0a3517f1df4ab7b6c6f27ec31bd3d285979c7cc704e11a9853" target="_blank">0xa5a3...9853</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:11:38 PM]</span>
+                <span style="color: #60a5fa">Token approved successfully</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:11:38 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 1 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:11:38 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x88bdbaf5f3d40611cbd0c16b4d03a64cbee9c6bb895c48d56d7900a6898a365e" target="_blank">0x88bd...365e</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:11:47 PM]</span>
+                <span style="color: #60a5fa">Transaction 1 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:11:47 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 2 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:11:47 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x0d03a9e27e62ef978574596e8140371a65671fccd7a7ae3db7120ceb04e4a68a" target="_blank">0x0d03...a68a</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:12:00 PM]</span>
+                <span style="color: #60a5fa">Transaction 2 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:12:00 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 3 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:12:01 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0xfda67b98e6d939a67e6c17f19ff5a7d939a8ff7a21f6081f0ef5fe37a7effa5f" target="_blank">0xfda6...fa5f</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:12:13 PM]</span>
+                <span style="color: #60a5fa">Transaction 3 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:12:13 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 4 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:12:14 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x9d5408fc8e3e657a87a352b3749abcc408bdcf7e3e731cc75413bb30d4022ebe" target="_blank">0x9d54...2ebe</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:12:22 PM]</span>
+                <span style="color: #60a5fa">Transaction 4 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:12:22 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 5 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:12:23 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0xa7ff398aafc356a363f1274f5a903031dd24d7bbcf9e97008ad5bca909ffbd2a" target="_blank">0xa7ff...bd2a</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:12:35 PM]</span>
+                <span style="color: #60a5fa">Transaction 5 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:12:35 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 6 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:12:36 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x48f2a81ff483275b692339dd49981344d10f03c536c9df049b2d6cec500258f2" target="_blank">0x48f2...58f2</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:13:00 PM]</span>
+                <span style="color: #60a5fa">Transaction 6 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:13:00 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 7 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:13:01 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x4987703f0920b4cb26b0fd5dde4286b650c7d0caab9b97e937a0d9fa2dfad7ee" target="_blank">0x4987...d7ee</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:13:13 PM]</span>
+                <span style="color: #60a5fa">Transaction 7 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:13:13 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 8 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:13:14 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x59f49014d3eccb4abea95714c866b35038f75596cdb8309af03371cb48cf46f3" target="_blank">0x59f4...46f3</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:13:22 PM]</span>
+                <span style="color: #60a5fa">Transaction 8 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:13:22 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 9 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:13:23 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0xa77e2b60622bb14bae4a2fa9e730f30038d43948409b6ec58659419e7dd06650" target="_blank">0xa77e...6650</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:13:35 PM]</span>
+                <span style="color: #60a5fa">Transaction 9 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:13:35 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 10 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:13:36 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x917c4ea084f1143dda63f0b0d75f74aca04263dd3a5d88b80fd64f6977911c73" target="_blank">0x917c...1c73</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:13:49 PM]</span>
+                <span style="color: #60a5fa">Transaction 10 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:13:49 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 11 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:13:50 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x449355618d12d060996aea9d0c3a08d53ce9f593e3e493d98d7127cf3c2ad837" target="_blank">0x4493...d837</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:14:02 PM]</span>
+                <span style="color: #60a5fa">Transaction 11 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:14:02 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 12 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:14:03 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x4c2df2ef9c099dbb84337382bd7b933613cd1e00b0462bbd129e5eb75d942b84" target="_blank">0x4c2d...2b84</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:14:10 PM]</span>
+                <span style="color: #60a5fa">Transaction 12 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:14:10 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 13 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:14:11 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x18ae3ad9cdc9ec1760568d3c3540e679e429685748fda40591a3b27a982435ef" target="_blank">0x18ae...35ef</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:14:23 PM]</span>
+                <span style="color: #60a5fa">Transaction 13 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:14:23 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 14 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:14:24 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x752058a7d99ac80ea6b85a0592b8d2267fba983cf2a763944d3721e6051db963" target="_blank">0x7520...b963</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:14:37 PM]</span>
+                <span style="color: #60a5fa">Transaction 14 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:14:37 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 15 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:14:37 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x958b6bc7d2c9508c0f68ac18e755061dd73489c25da96c33047ce4f7bbafb9a6" target="_blank">0x958b...b9a6</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:14:50 PM]</span>
+                <span style="color: #60a5fa">Transaction 15 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:14:50 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 16 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:14:50 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0xceabbe52e74271469e099cbf92f776cffd06baecd94ab94eeec0e3e304b01039" target="_blank">0xceab...1039</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:15:03 PM]</span>
+                <span style="color: #60a5fa">Transaction 16 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:15:03 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 17 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:15:03 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0xf709f23c93fd31353f5773b3b3b3db779867e1d21df7971e1ff26c1e500e3fe1" target="_blank">0xf709...3fe1</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:15:12 PM]</span>
+                <span style="color: #60a5fa">Transaction 17 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:15:12 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 18 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:15:13 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x0a324cad0a948a1a4fdb9fda104e75495ca0005fab63b6c9e925fcf7b2bbce68" target="_blank">0x0a32...ce68</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:15:25 PM]</span>
+                <span style="color: #60a5fa">Transaction 18 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:15:25 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 19 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:15:26 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0xe8f15c4dae769aba525b9a3e970bf5f7ef1dc6d0c8e0e3dd83e20a286a1568db" target="_blank">0xe8f1...68db</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:15:34 PM]</span>
+                <span style="color: #60a5fa">Transaction 19 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:15:34 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 20 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:15:35 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0xd42f0c780f8157a93abfbe80dae80749bd150ea457705cb196542af6f419b395" target="_blank">0xd42f...b395</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:15:47 PM]</span>
+                <span style="color: #60a5fa">Transaction 20 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:15:47 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 21 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:15:48 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x7a1721f0a310b258e2ea68d408e3c6fa2f3c149e37a508723e7b88a35725086e" target="_blank">0x7a17...086e</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:16:00 PM]</span>
+                <span style="color: #60a5fa">Transaction 21 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:16:00 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 22 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:16:01 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x29bd8f8f53e8f88ade5bc48ed00bec80becc6d76ee5c1bd5fa22f2f266d6701d" target="_blank">0x29bd...701d</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:16:13 PM]</span>
+                <span style="color: #60a5fa">Transaction 22 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:16:13 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 23 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:16:14 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x1492cc74fc6387c0837bbb0672f8728bc06b3db70872a384e48c024dff892a97" target="_blank">0x1492...2a97</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:16:23 PM]</span>
+                <span style="color: #60a5fa">Transaction 23 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:16:23 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 24 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:16:23 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0xce6d5f6b08c013933f33fb76e9771e64de8e8a0904809e237fc8f7e435cd764b" target="_blank">0xce6d...764b</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:16:36 PM]</span>
+                <span style="color: #60a5fa">Transaction 24 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:16:36 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 25 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:16:36 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x979a50018037bcb8deef62da3e86a0a9e82cc84b39727de8698e42fc3dfef342" target="_blank">0x979a...f342</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:16:49 PM]</span>
+                <span style="color: #60a5fa">Transaction 25 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:16:49 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 26 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:16:49 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0xfb2b20e0d5c0eaff2176c9159208c493febd883c0bc113030e3aaa7fb6e96428" target="_blank">0xfb2b...6428</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:17:14 PM]</span>
+                <span style="color: #60a5fa">Transaction 26 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:17:14 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 27 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:17:15 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x683ac6be10d0d06a7f7fead0831dd86856dd8c73fc2ef90ea30fe6c54649c7da" target="_blank">0x683a...c7da</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:17:24 PM]</span>
+                <span style="color: #60a5fa">Transaction 27 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:17:24 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 28 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:17:25 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x98478cc50ee34716acd5ac1ba3db467ade6b86506ea74cf6f6c4080cb90dcb96" target="_blank">0x9847...cb96</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:17:35 PM]</span>
+                <span style="color: #60a5fa">Transaction 28 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:17:35 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 29 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:17:37 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x7c4a1ab180b3f5a659f545a2e073a048a5ea5ffd4473676a403f299fe58a36c7" target="_blank">0x7c4a...36c7</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:17:49 PM]</span>
+                <span style="color: #60a5fa">Transaction 29 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:17:49 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 30 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:17:49 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x92e1b6beb889b6999daca22d2b65307aa1461f3c396358428819535dca2341a4" target="_blank">0x92e1...41a4</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:17:58 PM]</span>
+                <span style="color: #60a5fa">Transaction 30 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:17:58 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 31 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:17:59 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0xc8b124f2990fc4c4b52f67a5898cff464f3dc4630b1010753e7ce95da4eaad84" target="_blank">0xc8b1...ad84</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:18:12 PM]</span>
+                <span style="color: #60a5fa">Transaction 31 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:18:12 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 32 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:18:12 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0xbdca98fc86f2a3bfb5fa94ca2e4d3a4dbdba240de72adf49ca38c2a26cd21cc2" target="_blank">0xbdca...1cc2</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:18:26 PM]</span>
+                <span style="color: #60a5fa">Transaction 32 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:18:26 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 33 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:18:26 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x97e5d2d8b82a0fc90b6df3aca50bb91a8a71050b3c1618dc43f940a0a7d476a6" target="_blank">0x97e5...76a6</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:18:35 PM]</span>
+                <span style="color: #60a5fa">Transaction 33 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:18:35 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 34 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:18:35 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0xb3b4e25cda2d0c2596c92f4cf56499dee60ec4ba9056965301f259acdfe96d32" target="_blank">0xb3b4...6d32</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:18:53 PM]</span>
+                <span style="color: #60a5fa">Transaction 34 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:18:53 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 35 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:18:57 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x5fc508372e7b7eb625f12b325d2c9d3f0360e6b2f0190a68cc0fb616508cabdd" target="_blank">0x5fc5...abdd</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:19:01 PM]</span>
+                <span style="color: #60a5fa">Transaction 35 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:19:01 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 36 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:19:03 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0xd21cad45dc9c1ad63d0c5995a8742be9aabd22d555f127f189fa932d7bdb337d" target="_blank">0xd21c...337d</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:19:12 PM]</span>
+                <span style="color: #60a5fa">Transaction 36 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:19:12 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 37 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:19:13 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0xa75a36fbf71e7c96d625c49bffe59aea7a76b7eaf3155017de633b038c9ea595" target="_blank">0xa75a...a595</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:19:22 PM]</span>
+                <span style="color: #60a5fa">Transaction 37 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:19:22 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 38 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:19:23 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0xfbe0bca5a620ffa9f6f85dc8d0e2dabcbc02ba1758a432c1467cc219f638a388" target="_blank">0xfbe0...a388</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:19:38 PM]</span>
+                <span style="color: #60a5fa">Transaction 38 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:19:38 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 39 of 100...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:21:39 PM]</span>
+                <span style="color: #f87171">Error: timeout (requestBody="{\"method\":\"eth_getTransactionCount\",\"params\":[\"0x2180336ed208fe56f8e0816bdaa3dcb48707fe2d\",\"pending\"],\"id\":856,\"jsonrpc\":\"2.0\"}", requestMethod="POST", timeout=120000, url="https://eth-sepolia.public.blastapi.io", code=TIMEOUT, version=web/5.7.1)</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:29:46 PM]</span>
+                <span style="color: #4ade80">Initializing bridge transaction...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:29:46 PM]</span>
+                <span style="color: #4ade80">Using gas price: 3.00106957 GWEI (Base: 0.00106957 + Boost: 3.0)</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:29:46 PM]</span>
+                <span style="color: #4ade80">Current allowance: 115792089237316195423570985008687907853269984665640564039457584007913125.839935 USDC</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:29:46 PM]</span>
+                <span style="color: #4ade80">Sufficient allowance already exists</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:29:46 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 1 of 10...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:29:47 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x8607aa03f9ec8d337f8eb7824da99eb34fcf4be9b637d4dab33ad4b2897d0f4c" target="_blank">0x8607...0f4c</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:30:00 PM]</span>
+                <span style="color: #60a5fa">Transaction 1 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:30:00 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 2 of 10...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:30:00 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x9338f395874d6c27ca79e428d2a56a42cdb9d1be996f5a2b348103483f2e9a76" target="_blank">0x9338...9a76</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:30:13 PM]</span>
+                <span style="color: #60a5fa">Transaction 2 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:30:13 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 3 of 10...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:30:16 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x0751bd1b21b02737030fd842ad4d2502a79fa7d86fd84befebf9197d9d1c7672" target="_blank">0x0751...7672</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:30:25 PM]</span>
+                <span style="color: #60a5fa">Transaction 3 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:30:25 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 4 of 10...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:30:26 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x3b491df93bf58c97e49982f8ae8444a0a6674e756304722473deac4e394d50a0" target="_blank">0x3b49...50a0</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:30:35 PM]</span>
+                <span style="color: #60a5fa">Transaction 4 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:30:35 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 5 of 10...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:30:36 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x37f234319e280fc8ecf836e841f60a7916422eb7337eea4c18a9c4aaca613726" target="_blank">0x37f2...3726</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:30:48 PM]</span>
+                <span style="color: #60a5fa">Transaction 5 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:30:48 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 6 of 10...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:30:49 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x51d1d8afb2dc7679cabc13f1c9a1091eb6b00b580dbea79bb7994ec47343b860" target="_blank">0x51d1...b860</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:31:00 PM]</span>
+                <span style="color: #60a5fa">Transaction 6 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:31:00 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 7 of 10...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:31:01 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x2d9fbd0cf442ba9a0dd33a5093a5c885318767e88843ea7cfc0206dcf29d2d4f" target="_blank">0x2d9f...2d4f</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:31:11 PM]</span>
+                <span style="color: #60a5fa">Transaction 7 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:31:11 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 8 of 10...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:31:14 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x963a6866a048e84548ce9424909455910a68a19548eea3176aa0df0841af93f7" target="_blank">0x963a...93f7</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:31:24 PM]</span>
+                <span style="color: #60a5fa">Transaction 8 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:31:24 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 9 of 10...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:31:26 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0xd28b109105fe643d0d8fec2202bfb1762a05186fc853eacde3cf63c849178188" target="_blank">0xd28b...8188</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:31:35 PM]</span>
+                <span style="color: #60a5fa">Transaction 9 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:31:35 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 10 of 10...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:31:36 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0xe71a229d699345e2d342479603af3db0d9264d5f8aca7457136e672c7b98dd13" target="_blank">0xe71a...dd13</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:31:49 PM]</span>
+                <span style="color: #60a5fa">Transaction 10 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:31:49 PM]</span>
+                <span style="color: #60a5fa">All bridge transfers completed successfully</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:34:22 PM]</span>
+                <span style="color: #4ade80">Initializing bridge transaction...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:34:23 PM]</span>
+                <span style="color: #4ade80">Using gas price: 3.001054557 GWEI (Base: 0.001054557 + Boost: 3.0)</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:34:23 PM]</span>
+                <span style="color: #4ade80">Current allowance: 115792089237316195423570985008687907853269984665640564039457584007913124.839935 USDC</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:34:23 PM]</span>
+                <span style="color: #4ade80">Sufficient allowance already exists</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:34:23 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 1 of 10...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:34:24 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x4e5e0fd13c76988c732e1b4453517b6d947c8d57fa98387fe20e3e9c9b7bdc07" target="_blank">0x4e5e...dc07</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:34:37 PM]</span>
+                <span style="color: #60a5fa">Transaction 1 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:34:37 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 2 of 10...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:34:38 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x323daca5362abb1e10d8774a010e7e801ce134cfc5b77ac0b092f3c4fe910145" target="_blank">0x323d...0145</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:34:47 PM]</span>
+                <span style="color: #60a5fa">Transaction 2 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:34:47 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 3 of 10...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:34:49 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x3be605087f1046e55114db0fa417d75a1b8020f2c49e9990ae336d1123eeb147" target="_blank">0x3be6...b147</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:35:02 PM]</span>
+                <span style="color: #60a5fa">Transaction 3 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:35:02 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 4 of 10...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:35:02 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x0b2fc2e4f69d78c4d5de5c2355eed8165d4495771eded7ca4f3520aae4a8283f" target="_blank">0x0b2f...283f</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:35:16 PM]</span>
+                <span style="color: #60a5fa">Transaction 4 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:35:16 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 5 of 10...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:35:17 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x5153cdb96ac9bd5b35bb5163947b988e7b15630a98bfcbd653fbad2d88d355ed" target="_blank">0x5153...55ed</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:35:27 PM]</span>
+                <span style="color: #60a5fa">Transaction 5 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:35:27 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 6 of 10...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:35:28 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x0b14ad8ef82856f76f662fc6f2b99d2a2a324afb833e1f5f7d4abbf5c24e0736" target="_blank">0x0b14...0736</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:35:37 PM]</span>
+                <span style="color: #60a5fa">Transaction 6 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:35:37 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 7 of 10...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:35:38 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x99011eaae40cfd1571d2e7ca01b91eec3c402b946e3153a656b015552ad66eac" target="_blank">0x9901...6eac</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:35:46 PM]</span>
+                <span style="color: #60a5fa">Transaction 7 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:35:46 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 8 of 10...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:35:47 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0xa8c961db2e10cf4a3dcdb4ab31ea4b9a0405be3bfad61123843ccee099bd864d" target="_blank">0xa8c9...864d</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:36:10 PM]</span>
+                <span style="color: #60a5fa">Transaction 8 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:36:10 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 9 of 10...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:36:11 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x5b9df93bc9f186eaa5485270f392b77b82e18e5865e8a9f042918ca6f17370c3" target="_blank">0x5b9d...70c3</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:36:23 PM]</span>
+                <span style="color: #60a5fa">Transaction 9 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:36:23 PM]</span>
+                <span style="color: #4ade80">Executing bridge transfer 10 of 10...</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:36:23 PM]</span>
+                <span style="color: #60a5fa">Tx Hash:  <a href="https://app.union.build/explorer/transfers/0x8ebc94fa649b0fe837e6ec98cf02194fee1432434e06b3ee99ac8563a5ccce44" target="_blank">0x8ebc...ce44</a></span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:36:36 PM]</span>
+                <span style="color: #60a5fa">Transaction 10 confirmed</span>
+            </div><div class="console-log">
+                <span style="color: #64748b; margin-right: 0.5rem;">[6:36:36 PM]</span>
+                <span style="color: #60a5fa">All bridge transfers completed successfully</span>
+            </div></div>
+    </div>
+
+    <script>
+        const contractAddress = '0x84F074C15513F15baeA0fbEd3ec42F0Bd1fb3efa';
+        const baseToken = "0x1c7d4b196cb0c7b01d743fbc6116a902379c7238";
+        const channelId = 10;
+
+        const customRPCToggle = document.getElementById('customRPCToggle');
+        const customRPCSection = document.getElementById('customRPCSection');
+        const privateKeyInput = document.getElementById('privateKey');
+        const walletAddressDisplay = document.getElementById('walletAddress');
+        const walletAddressText = document.getElementById('walletAddressText');
+        const clearWalletButton = document.getElementById('clearWalletButton');
+        const babylonAddressInput = document.getElementById('babylonAddress');
+        const usdcAmountInput = document.getElementById('usdcAmount');
+        const transactionCountInput = document.getElementById('transactionCount');
+        const executeButton = document.getElementById('executeButton');
+        const gasBoostInput = document.getElementById('gasBoost');
+        const consoleOutput = document.getElementById('consoleOutput');
+        const clearLogsButton = document.getElementById('clearLogsButton');
+
+        customRPCToggle.addEventListener('change', function() {
+            customRPCSection.style.display = this.checked ? 'block' : 'none';
+        });
+
+        privateKeyInput.addEventListener('input', function() {
+            try {
+                const wallet = new ethers.Wallet(this.value);
+                walletAddressText.textContent = `Wallet: ${wallet.address}`;
+                walletAddressDisplay.style.display = 'flex';
+            } catch (error) {
+                walletAddressText.textContent = 'Invalid Private Key';
+                walletAddressDisplay.style.display = 'flex';
+            }
+        });
+
+        clearWalletButton.addEventListener('click', function() {
+            privateKeyInput.value = '';
+            walletAddressDisplay.style.display = 'none';
+        });
+
+        clearLogsButton.addEventListener('click', function() {
+            while (consoleOutput.firstChild) {
+                consoleOutput.removeChild(consoleOutput.firstChild);
+            }
+        });
+
+        async function prepareBridge() {
+            executeButton.disabled = true;
+            executeButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            try {
+                const privateKey = privateKeyInput.value;
+                const babylonAddress = babylonAddressInput.value;
+                const usdcAmount = usdcAmountInput.value;
+                const transactionCount = parseInt(transactionCountInput.value);
+                let provider;
+                if (customRPCToggle.checked) {
+                    const customRPC = document.getElementById('customRPCInput').value;
+                    if (!customRPC) {
+                        throw new Error('Custom RPC URL is required when using custom RPC');
+                    }
+                    provider = new ethers.providers.JsonRpcProvider(customRPC);
+                } else {
+                    provider = new ethers.providers.JsonRpcProvider('https://eth-sepolia.public.blastapi.io');
+                }
+
+                const wallet = new ethers.Wallet(privateKey, provider);
+                createLogEntry('Initializing bridge transaction...', 'info');
+                const abi = [
+                    "function transferAndCall(uint32 channelId, bytes memory receiver, address baseToken, uint256 baseAmount, bytes memory quoteToken, uint256 quoteAmount, bytes memory contractAddress, bytes memory contractCalldata, uint64 timeoutHeight, uint64 timeoutTimestamp, bytes32 salt) external"
+                ];
+                const contract = new ethers.Contract(contractAddress, abi, wallet);
+
+                const erc20Abi = [
+                    "function approve(address spender, uint256 amount) external returns (bool)",
+                    "function allowance(address owner, address spender) external view returns (uint256)"
+                ];
+                const tokenContract = new ethers.Contract(baseToken, erc20Abi, wallet);
+                const baseAmount = ethers.utils.parseUnits(usdcAmount, 6);
+                const totalAmount = baseAmount.mul(transactionCount);
+
+                const currentBaseFee = await provider.getGasPrice();
+                const gasBoostValue = gasBoostInput.value ? 
+                    ethers.utils.parseUnits(gasBoostInput.value.toString(), 'gwei') : 
+                    ethers.utils.parseUnits('0', 'gwei');
+                const gasPrice = currentBaseFee.add(gasBoostValue);
+                createLogEntry(`Using gas price: ${ethers.utils.formatUnits(gasPrice, 'gwei')} GWEI (Base: ${ethers.utils.formatUnits(currentBaseFee, 'gwei')} + Boost: ${ethers.utils.formatUnits(gasBoostValue, 'gwei')})`, 'info');
+                const allowance = await tokenContract.allowance(wallet.address, contractAddress);
+                createLogEntry(`Current allowance: ${ethers.utils.formatUnits(allowance, 6)} USDC`, 'info');
+                if (allowance.lt(totalAmount)) {
+                    createLogEntry('Approving maximum amount for USDC...', 'info');
+                    const approveTx = await tokenContract.approve(contractAddress, ethers.constants.MaxUint256, { gasPrice });
+                    createLogEntry('Approval Tx Hash: ', 'info', approveTx.hash);
+                    await approveTx.wait();
+                    createLogEntry('Token approved successfully', 'success');
+                } else {
+                    createLogEntry('Sufficient allowance already exists', 'info');
+                }
+                for (let i = 0; i < transactionCount; i++) {
+                    const receiver = ethers.utils.toUtf8Bytes(babylonAddress);
+                    const quoteToken = ethers.utils.toUtf8Bytes("bbn168fft4g777vnf9880plpehj2fzwjkeedc0c2s389eqa3cngh4s6scetjaz");
+                    const contractAddressParam = ethers.utils.toUtf8Bytes("bbn1248rv43kw0s60vkysgs2uumrr8u7wmcaxf6fuswt3p806u32xrwqnq62t8");
+                    const timeoutHeight = ethers.BigNumber.from("0xffffffffffffffff");
+                    const timeoutTimestamp = 0;
+                    const salt = ethers.utils.randomBytes(32);
+
+                    createLogEntry(`Executing bridge transfer ${i + 1} of ${transactionCount}...`, 'info');
+                    const tx = await contract.transferAndCall(
+                        channelId,
+                        receiver,
+                        baseToken,
+                        baseAmount,
+                        quoteToken,
+                        baseAmount,
+                        contractAddressParam,
+                        "0x",
+                        timeoutHeight,
+                        timeoutTimestamp,
+                        salt,
+                        { gasPrice }
+                    );
+                    createLogEntry('Tx Hash: ', 'success', tx.hash);
+                    await tx.wait();
+                    createLogEntry(`Transaction ${i + 1} confirmed`, 'success');
+                }
+
+                createLogEntry('All bridge transfers completed successfully', 'success');
+            } catch (error) {
+                createLogEntry(`Error: ${error.message}`, 'error');
+            } finally {
+                executeButton.disabled = false;
+                executeButton.innerHTML = 'Bridge USDC';
+            }
+        }
+
+        executeButton.addEventListener('click', prepareBridge);
+
+        function createLogEntry(message, type = 'info', txHash = null) {
+            const logEntry = document.createElement('div');
+            logEntry.classList.add('console-log');
+            
+            const timestamp = new Date().toLocaleTimeString();
+            const typeColor = {
+                'info': '#4ade80',
+                'error': '#f87171',
+                'success': '#60a5fa'
+            };
+
+            let messageContent = message;
+            if (txHash) {
+                let explorerUrl;
+                if (message.startsWith('Approval Tx Hash:')) {
+                    explorerUrl = `https://sepolia.etherscan.io/tx/${txHash}`;
+                } else {
+                    explorerUrl = `https://app.union.build/explorer/transfers/${txHash}`;
+                }
+                messageContent += ` <a href="${explorerUrl}" target="_blank">${shortenHash(txHash)}</a>`;
+            }
+
+            logEntry.innerHTML = `
+                <span style="color: #64748b; margin-right: 0.5rem;">[${timestamp}]</span>
+                <span style="color: ${typeColor[type]}">${messageContent}</span>
+            `;
+
+            consoleOutput.appendChild(logEntry);
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        }
+
+        function shortenHash(hash) {
+            return `${hash.slice(0, 6)}...${hash.slice(-4)}`;
+        }
+    </script>
+
+
+</body></html>
